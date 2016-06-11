@@ -7,33 +7,70 @@ function setStatus(message) {
   status.innerHTML = message;
 };
 
-function refreshBalance() {
-  var meta = MetaCoin.deployed();
+function setFoundedMountains(message) {
+  var myMountains = document.getElementById("myMountains");
+  myMountains.innerHTML = message;
+};
 
-  meta.getBalance.call(account, {from: account}).then(function(value) {
-    var balance_element = document.getElementById("balance");
-    balance_element.innerHTML = value.valueOf();
+function refreshMyMountains() {
+  var Factory = MountainFactory.deployed();
+
+  Factory.contractsByFounderLength.call(account, {from: account}).then(function(value){
+
+    var mountains = [];
+    if(!value.c[0]){
+      setFoundedMountains("No current mountains set up.")
+      return;
+    }
+    var length = value.c[0];
+    _.each(_.range(length),
+      function(i){
+        Factory.contractsByFounder.call(account, i, {from: account}).then(function(value) {
+          mountains.push(value);
+
+          if(i+1 == length){
+
+            setFoundedMountains(
+              _.map(mountains, function(item){
+                var name = web3.toAscii(item[0]);
+                return '<a href="'+item[1]+'">'+name+'</a>';
+              }).join(', ')
+            );
+
+          }
+        }).catch(function(e) {
+          console.log(e);
+          setFoundedMountains("Error getting mountains; see log.");
+        });;
+      }
+    );
+
+
+
   }).catch(function(e) {
     console.log(e);
-    setStatus("Error getting balance; see log.");
+    setStatus("Error getting number of mountains; see log.");
   });
 };
 
-function sendCoin() {
-  var meta = MetaCoin.deployed();
+function createContract() {
+  var Factory = MountainFactory.deployed();
 
-  var amount = parseInt(document.getElementById("amount").value);
-  var receiver = document.getElementById("receiver").value;
+  var name = document.getElementById("name").value;
+  var multiplier = parseInt(document.getElementById("multiplier").value);
+  var waitingWeeks = parseInt(document.getElementById("waitingWeeks").value);
+  var maxLoan = parseInt(document.getElementById("maxLoan").value);
 
   setStatus("Initiating transaction... (please wait)");
 
-  meta.sendCoin(receiver, amount, {from: account}).then(function() {
+  Factory.createContract(name, multiplier, waitingWeeks, maxLoan, {from: account}).then(function() {
     setStatus("Transaction complete!");
-    refreshBalance();
+    refreshMyMountains();
   }).catch(function(e) {
     console.log(e);
     setStatus("Error sending coin; see log.");
   });
+
 };
 
 window.onload = function() {
@@ -51,6 +88,6 @@ window.onload = function() {
     accounts = accs;
     account = accounts[0];
 
-    refreshBalance();
+    refreshMyMountains();
   });
 }
