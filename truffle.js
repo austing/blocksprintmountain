@@ -12,12 +12,14 @@ module.exports = {
     "app.js": [
       "javascripts/jquery.min.js",
       "javascripts/common.js",
+      "javascripts/createForm.js",
       "javascripts/index.js",
+      "javascripts/moneyTransactions.js",
       "javascripts/mountainDetail.js",
     ],
     "static/css/app.css": [
       "static/css/app.css",
-      "static/css/grids.css",
+      "static/css/bootstrap.css",
       "static/css/font-awesome.min.css"
     ],
     "static/images/": "static/images/",

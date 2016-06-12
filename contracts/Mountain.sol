@@ -41,7 +41,7 @@ contract Mountain {
     mapping(address => uint) memberInformationLookup;
 
     // Balances for each member - a signed integer, can be negative
-    mapping(address => int) accountBalance;
+    mapping(address => int) public accountBalance;
 
     // Every deposit or withdrawal is a transaction; amountIntoMountain
     // is negative for withdrawals and positive for deposits.

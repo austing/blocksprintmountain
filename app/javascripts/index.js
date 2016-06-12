@@ -1,8 +1,3 @@
-function setStatus(message) {
-  var status = document.getElementById("status");
-  status.innerHTML = message;
-};
-
 function setFoundedMountains(message) {
   var myMountains = document.getElementById("myFoundedMountains");
   myMountains.innerHTML = message + `
@@ -104,26 +99,6 @@ function refreshMyMountains() {
   }).catch(function(e) {
     console.log(e);
     setStatus("Error getting number of mountains; see log.");
-  });
-
-};
-
-function createContract() {
-  var Factory = MountainFactory.deployed();
-
-  var name = document.getElementById("name").value;
-  var multiplier = parseInt(document.getElementById("multiplier").value);
-  var waitingWeeks = parseInt(document.getElementById("waitingWeeks").value);
-  var maxLoan = parseInt(document.getElementById("maxLoan").value);
-
-  setStatus("Creating mountain...");
-
-  Factory.createContract(name, multiplier, waitingWeeks, maxLoan, {from: account}).then(function() {
-    setStatus("Mountain created");
-    refreshMyMountains();
-  }).catch(function(e) {
-    console.log(e);
-    setStatus("Error creating mountain; see log.");
   });
 
 };

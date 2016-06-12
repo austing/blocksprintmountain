@@ -23,5 +23,26 @@ window.onload = function() {
     if(window.page == 'mountain-detail'){
       showMountainDetail();
     }
+    if(window.page == 'deposit'){
+      showTransactionForm();
+    }
+    if(window.page == 'borrow'){
+      showTransactionForm();
+      showBorrowMessage();
+    }
+    if(window.page == 'withdraw'){
+      showTransactionForm();
+      showWithdrawMessage();
+    }
+    if(window.page == 'payment'){
+      showTransactionForm();
+      showPaymentMessage();
+    }
+
   });
 }
+
+function setStatus(message) {
+  var status = document.getElementById("status");
+  status.innerHTML = message;
+};

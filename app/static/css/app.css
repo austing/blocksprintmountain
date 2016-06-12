@@ -1144,7 +1144,17 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none; }
 h1 {
   font-size: 2.35em;
-  line-height: 2.75em;
+  line-height: 2.35em;
+  text-align: center;
+  margin-bottom: 0px !important;
+}
+h2.subtitle {
+  font-size: 1.75em;
+  padding-top: 0px !important;
+  text-align: center;
+}
+h3.total {
+  line-height: default;
   text-align: center;
 }
 h2 {
@@ -1657,7 +1667,7 @@ input[type="reset"],
 input[type="button"],
 button,
 .button {
-  margin: 0 auto;
+  margin: 0 auto !important;
   display: block !important;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -2352,7 +2362,7 @@ body.is-menu-visible #menu {
             outline: 0;
             position: relative; }
             #header nav > ul > li > a.menuToggle:after {
-              background-image: url("images/bars.svg");
+              background-image: url("/static/images/bars.svg");
               background-position: right center;
               background-repeat: no-repeat;
               content: '';
@@ -2772,7 +2782,7 @@ body.is-mobile.landing #footer {
   [id=view-pot] h2,
   [id=list-pot] h2 {
     padding-top: 1.5em;
-    margin-bottom: 2em; }
+     }
 
 .block-view {
   padding: 1em 2em;
@@ -2811,3 +2821,29 @@ body.is-mobile.landing #footer {
 
 .highcharts {
   min-height: 50vh; }
+
+
+.depositButtons {
+  list-style: none;
+  text-align: center;
+}
+.depositButtons li {
+  display: inline-block;
+}
+
+.backlink {
+  text-transform: uppercase;
+    font-family: 'Open Sans', Helvetica, sans-serif;
+    font-weight: bold;
+    margin-left: 50px;
+}
+.backlink a {
+  border-bottom: none;
+}
+.backlink i.fa {
+  margin-right: 15px;
+}
+
+div#status {
+  text-align: center;
+}

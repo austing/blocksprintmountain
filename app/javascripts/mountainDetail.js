@@ -4,7 +4,12 @@ function setMembersList(listHTML) {
 };
 
 function showMountainDetail(){
-  var mountain = Mountain.at(window.location.hash.slice(1));
+  var address = window.location.hash.slice(1);
+  var mountain = Mountain.at(address);
+  $('a#depositLink').attr('href', "/deposit.html#"+address);
+  $('a#withdrawLink').attr('href', "/withdraw.html#"+address);
+  $('a#borrowLink').attr('href', "/borrow.html#"+address);
+  $('a#paybackLink').attr('href', "/pay-back.html#"+address);
 
   mountain.contractName.call({from: account}).then(function(value){
     if(value){
@@ -13,6 +18,10 @@ function showMountainDetail(){
   });
 
   $('.mountainBalance').text(web3.eth.getBalance(mountain.address));
+
+  mountain.accountBalance.call(account, {from: account}).then(function(value){
+    $('.myMountainBalance').text(value.c);
+  })
 
   mountain.memberInformationLength.call({from: account}).then(function(value) {
 
@@ -52,17 +61,17 @@ function showMountainDetail(){
           members.push(member);
 
           if(i+1 == length){
+//                    <td><img src="`+member.image+`" width="100" alt=""></td>
 
             setMembersList(
               _.map(members, function(member){
                 return `
                 <tr>
-                    <td><img src="`+member.image+`" width="100" alt=""></td>
                     <td>`+member.name+`</td>
                     <td>`+String(member.lastTransaction)+`</td>
-                    <td>`+member.signForIn+String(member.totalIn)+`€</td>
-                    <td>`+member.signForOut+String(member.totalOut)+`€</td>
-                    <td>`+String(member.balance)+`€</td>
+                    <td>`+member.signForIn+String(member.totalIn)+`ETH</td>
+                    <td>`+member.signForOut+String(member.totalOut)+`ETH</td>
+                    <td>`+String(member.balance)+`ETH</td>
                 </tr>`;
               }).join(`
                 `)

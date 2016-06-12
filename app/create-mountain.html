@@ -6,7 +6,7 @@
   <link href="./static/css/app.css" rel='stylesheet' type='text/css'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <script type='text/javascript'>
-    window.page = 'index';
+    window.page = 'create-mountain';
   </script>
   <script src="./app.js"></script>
 </head>
@@ -34,26 +34,29 @@
       </ul>
     </nav>
   </header>
+  <div class="backlink"><a href="/"><i class="fa fa-chevron-left" aria-hidden="true"></i>Home</a></div>
 
   <h1>Create a money mountain</h1>
 
-<section id="create-pot" class="center w90 container">
-  <div id="status" class="col-sm-12"></div>
-      <div class="col-md-8 col-md-offset-2">
-        <label for="name">Nom de la montagne:</label><input type="text" id="name" placeholder="e.g., Performing Arts Forum"></input>
-      </div>
-      <div class="col-md-4">
-        <label for="waitingWeeks">Waiting weeks:</label><input type="number" min="0" id="waitingWeeks" value="12"> (The idea isn't to get money instantly, but to leave one's deposits and forget about them until one needs some capital. So generally one specifies a number of weeks of delay before one can borrow 3x one's deposit. Obviously one can withdraw the deposit at any time.)</input>
-      </div>
-      <div class="col-md-4">
-        <label for="multiplier">Multiplier:</label><input type="number" min="1" id="multiplier" value="3"> (Members will be able to borrow, e.g. 3x what they put in.)</input>
-      </div>
-      <div class="col-md-4">
-        <label for="maxLoan">Max loan:</label><input type="number" min="0" id="maxLoan" value="15000"> (Define a hard cap on your loan, if you want to.)</input>
-      </div>
-  <div class="col-sm-8 col-sm-offset-2"><button id="send" onclick="createContract()">Create a money mountain</button></div>
-
-</section>
+  <section id="create-pot" class="center w90 container">
+    <div id="status" class="col-sm-12"></div>
+    <div id="createForm">
+        <div class="col-md-8 col-md-offset-2">
+          <label for="name">Nom de la montagne:</label><input type="text" id="name" placeholder="e.g., Performing Arts Forum"></input>
+        </div>
+        <div class="col-md-4">
+          <label for="waitingWeeks">Waiting weeks:</label><input type="number" min="0" id="waitingWeeks" value="12">The idea isn't to get money instantly, but to leave one's deposits and forget about them until one needs some capital. So generally one specifies a number of weeks of delay before one can borrow <span class="multiplier">3</span>x one's deposit. Obviously one can withdraw the deposit at any time.</input>
+        </div>
+        <div class="col-md-4">
+          <label for="multiplier">Multiplier:</label><input type="number" min="1" id="multiplier" value="3">Members will be able to borrow, e.g. <span class="multiplier">3</span>x what they put in after <span class="waitingWeeks">12</span> weeks.</input>
+        </div>
+        <div class="col-md-4">
+          <label for="maxLoan">Max loan:</label><input type="number" min="0" id="maxLoan">Define a hard cap on your loan, if you want to.</input>
+        </div>
+        <div class="col-md-12"><button id="send" onclick="createContract()">Create a money mountain</button></div>
+    </div>
+    <h1 class="success" style="display: none;">Mountain created</h1>
+  </section>
 
 </body>
 </html>

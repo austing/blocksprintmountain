@@ -11,113 +11,33 @@
   <script src="./app.js"></script>
 </head>
 <body>
+  <div class="backlink"><a href="/"><i class="fa fa-chevron-left" aria-hidden="true"></i>Home</a></div>
   <section id="view-pot" class="center w90">
-    <h1>View mountain <span class="mountainName"></span></h1>
-    <div class="flexblock">
-      <div class="block-view w50">
-        <div class="img-pot">
-          <img src="/static/images/pig-pot.png" alt="">
-        </div><!--/-->
-        <div class="total-pot">
-          <p>Total of mountain</p>
-          <p class="price"><span class="mountainBalance">7050</span>€</p>
-        </div><!--/total-pot-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <h1 class="mountainName"></h1>
+    <h2 class="subtitle">Mountain dashboard</h1>
+    <div class="container text-center">
+      <image class="center-block" src="/static/images/pig-pot.png"><br>
+      <h3 class="total">There is <span class="mountainBalance"></span> ETH total<br>on the mountain</h3>
+      <h3 class="total">You have <span class="myMountainBalance"></span> ETH<br>on the mountain</h3>
+    </div>
 
-        <div id="container" class="center highcharts"></div>
-        <script type="text/javascript">
-          $(function () {
-              $(document).ready(function () {
-                  Highcharts.setOptions({
-                      global: {
-                          useUTC: false
-                      }
-                  });
+    <div class="list-btn">
+      <ul class="depositButtons">
+        <li><a id="depositLink"><button>Dépôt</button></a></li>
+        <li><a id="withdrawLink"><button>Retirer dépôt</button></a></li>
+        <li><a id="borrowLink"><button>Emprunt</button></a></li>
+        <li><a id="paybackLink"><button>Paiment</button></a></li>
+        <li class="adminButton"></li>
+      </ul>
+    </div>
 
-                  var chart = new Highcharts.Chart({
-                      chart: {
-                        renderTo: 'container',
-                          type: 'spline',
-                          animation: Highcharts.svg, // don't animate in old IE
-                          marginRight: 10,
-                          events: {
-                              load: function () {
-
-                                  // set up the updating of the chart each second
-                                  var series = this.series[0];
-                                  setInterval(function () {
-                                      var x = (new Date()).getTime(), // current time
-                                          y = Math.random();
-                                      series.addPoint([x, y], true, true);
-                                  }, 1000);
-                              }
-                          }
-                      },
-                      title: {
-                          text: 'Live random data'
-                      },
-                      xAxis: {
-                          type: 'datetime',
-                          tickPixelInterval: 150
-                      },
-                      yAxis: {
-                          title: {
-                              text: 'Value'
-                          },
-                          plotLines: [{
-                              value: 0,
-                              width: 1,
-                              color: '#131313'
-                          }]
-                      },
-                      tooltip: {
-                          formatter: function () {
-                              return '<b>' + this.series.name + '</b><br/>' +
-                                  Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                                  Highcharts.numberFormat(this.y, 2);
-                          }
-                      },
-                      legend: {
-                          enabled: false
-                      },
-                      exporting: {
-                          enabled: false
-                      },
-                      series: [{
-                          name: 'Random data',
-                          data: (function () {
-                              // generate an array of random data
-                              var data = [],
-                                  time = (new Date()).getTime(),
-                                  i;
-
-                              for (i = -19; i <= 0; i += 1) {
-                                  data.push({
-                                      x: time + i * 1000,
-                                      y: Math.random()
-                                  });
-                              }
-                              return data;
-                          }())
-                      }]
-                  });
-              });
-          });
-        </script>
-      </div><!--/block-view-->
-
-      <div class="block-admin-pot w50">
-        <div class="block-link-list">
-          <a href="#list-pot" class="button">Retour à la liste des pot(s)</a>
-        </div>
+    <div class="container">
+      <div class="col-md-10 col-md-offset-1">
         <div class="table-invit">
           <table>
             <thead>
               <tr>
-                <th>&nbsp</th>
-                <th>My Mountain's friend</th>
+                <th>Participants</th>
                 <th>Last transaction</th>
                 <th>Total deposits</th>
                 <th>Total withdrawals</th>
@@ -128,22 +48,9 @@
             </tbody>
           </table>
         </div><!--/table-invit-->
-        <div class="invit-pot">
-          <form action="" method="post">
-            <label for="mail-invit">Invite friends</label>
-            <input type="email" id="mail-invit" palceholder="Dinesh ">
-          </form>
-        </div><!--/invit-pot-->
-        <div class="list-btn">
-          <ul class="flexblock">
-            <li><button>Dépôt</button></li>
-            <li><button>Retirer dépôt</button></li>
-            <li><button>Emprunt</button></li>
-            <li><button>Paiment</button></li>
-          </ul>
-        </div>
       </div>
     </div>
+
   </section>
 
 </body>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mountain of Money</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href="./static/css/app.css" rel='stylesheet' type='text/css'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script type='text/javascript'>
+    window.page = 'borrow';
+  </script>
+  <script src="./app.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header"{% if page.layout == 'landing' %} class="alt"{% endif %} class="flexbox ui">
+    <h1><span><img src="/static/images/mountain-money-mini.png" alt="mountain money" width="50"></span></h1>
+    <nav id="nav" role="navigation">
+      <ul>
+        <li class="special">
+          <a href="#menu" class="menuToggle"><span class="thumbs"><img src="/static/images/dinesh.jpg" width="50" alt=""></span><span>Dinesh Chugtai</span></a>
+          <div id="menu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              {% for my_page in site.pages %}
+              {% if my_page.title %}
+              <li><a href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a></li>
+              {% endif %}
+              {% endfor %}
+              <li><a href="#">Sign Up</a></li>
+              <li><a href="#">Log Out</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="backlink"><a id="toMountain"><i class="fa fa-chevron-left" aria-hidden="true"></i>Back to mountain</a></div>
+
+  <div class="container"><h1 class="col-md-10 col-md-offset-1">Borrow <span class="mountainName"></span></h1></div>
+
+  <section class="center w90 container">
+    <div id="status" class="col-sm-12"></div>
+    <div class="col-md-8 col-md-offset-2">
+      <label for="amount">Amount:</label><input type="number" min="0" id="amount">
+    </div>
+    <div class="col-md-12"><br><button id="send" onclick="borrow()">Borrow</button></div>
+
+  </section>
+
+</body>
+</html>
