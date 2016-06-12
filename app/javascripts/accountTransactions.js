@@ -17,11 +17,10 @@ function join(){
   var Factory = MountainFactory.deployed();
 
   var name = document.getElementById("name").value;
-console.log(name)
+
   Factory.joinMountain(name, mountain.address, {from: account}).then(function(value){
     setStatus("You have joined this mountain.");
   }).catch(function(e) {
-    console.log(e);
     setStatus("Error joining mountain; see log.");
   });
 

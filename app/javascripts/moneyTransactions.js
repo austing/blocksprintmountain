@@ -25,14 +25,12 @@ function makeDeposit(){
   var mountain = Mountain.at(window.location.hash.slice(1));
   var amount = parseInt(document.getElementById("amount").value);
   setStatus("Sending money...");
-
   mountain.deposit({from: account, value: amount}).then(function(){
     setStatus("Sent.");
   }).catch(function(e) {
     console.log(e);
     setStatus("Error sending money; see log.");
   });
-
 }
 
 function withdraw(){

@@ -20,7 +20,7 @@
           <a href="#menu" class="menuToggle"><span class="thumbs"><img src="/static/images/dinesh.jpg" width="50" alt=""></span><span>Dinesh Chugtai</span></a>
           <div id="menu">
             <ul>
-              <li><a href="index.html">Home</a></li>
+              <li><a href="/dashboard.html">Home</a></li>
               {% for my_page in site.pages %}
               {% if my_page.title %}
               <li><a href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a></li>
@@ -34,7 +34,7 @@
       </ul>
     </nav>
   </header>
-  <div class="backlink"><a href="/"><i class="fa fa-chevron-left" aria-hidden="true"></i>Home</a></div>
+  <div class="backlink"><a href="/dashboard.html"><i class="fa fa-chevron-left" aria-hidden="true"></i>Home</a></div>
 
   <h1>Create a money mountain</h1>
 

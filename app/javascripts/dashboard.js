@@ -1,6 +1,6 @@
 function setFoundedMountains(message) {
-  var myMountains = document.getElementById("myFoundedMountains");
-  myMountains.innerHTML = message + `
+  var myFoundedMountains = document.getElementById("myFoundedMountains");
+  myFoundedMountains.innerHTML = message + `
   <div class="block-pot block-pot-create w33">
     <a href="/create-mountain.html">
       <h3><span>+</span> Create mountain</h3>
@@ -10,8 +10,14 @@ function setFoundedMountains(message) {
 };
 
 function setJoinedMountains(message) {
-  var myMountains = document.getElementById("myJoinedMountains");
-  myMountains.innerHTML = message;
+  var myJoinedMountains = document.getElementById("myJoinedMountains");
+  myJoinedMountains.innerHTML = message + `
+  <div class="block-pot block-pot-create w33">
+    <a href="/create-mountain.html">
+      <h3><span>+</span> Create mountain</h3>
+    </a>
+  </div>
+  `;
 };
 
 function refreshMyMountains() {
@@ -27,6 +33,7 @@ function refreshMyMountains() {
     var length = value.c[0];
     _.each(_.range(length),
       function(i){
+
         Factory.contractsByFounder.call(account, i, {from: account}).then(function(value) {
           mountains.push(value);
 

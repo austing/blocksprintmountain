@@ -56,6 +56,7 @@ function showTransactionForm(){
   var hash = window.location.hash.slice(1);
   var mountain = Mountain.at(hash);
 
+  $(':input:enabled:visible:first').focus();
   $('#toMountain').attr('href', '/mountain.html#'+hash);
 
   mountain.contractName.call({from: account}).then(function(value){

@@ -6,6 +6,8 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
+  $(':input:enabled:visible:first').focus();
+
   $('input#waitingWeeks').change(function(e){
     console.log(e)
     $('span.waitingWeeks').text(e.target.value);
@@ -18,21 +20,26 @@ function createContract() {
   var name = document.getElementById("name").value;
   var multiplier = parseInt(document.getElementById("multiplier").value);
   var waitingWeeks = parseInt(document.getElementById("waitingWeeks").value);
-  var maxLoan = parseInt(document.getElementById("maxLoan").value);
+  var maxLoan = parseInt(document.getElementById("maxLoan").value) || null;
+
+  if(!name){return;}
 
   setStatus("Creating mountain...");
-
   var events = Factory.MountainCreated(function(error, result){
-    if(!error){
+    if(result){
       $('#toMountain').attr('href', '/mountain.html#'+result.args.mountain)
+      events.stopWatching();
+    }else{
+      console.log(e)
     }
-    events.stopWatching();
+
   });
 
   Factory.createContract(name, multiplier, waitingWeeks, maxLoan, {from: account}).then(function(value) {
     setStatus("");
     $('#createForm').hide();
     $('.success').css('display','');
+    // web3.eth.getTransactionReceipt(value)
   }).catch(function(e) {
     console.log(e);
     setStatus("Error creating mountain; see log.");

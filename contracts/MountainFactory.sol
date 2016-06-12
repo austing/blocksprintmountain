@@ -14,7 +14,7 @@ contract MountainFactory {
 
     event MountainCreated (address mountain);
 
-    function createContract (bytes32 contractName, uint multiplier, uint waitingWeeks, uint maxLoan) public returns (address) {
+    function createContract (bytes32 contractName, uint multiplier, uint waitingWeeks, uint maxLoan) public {
         address founder = msg.sender;
         var mountain = new Mountain(contractName, multiplier, waitingWeeks, maxLoan, founder);
         contractsByFounder[msg.sender].push(MountainContract(
@@ -41,7 +41,8 @@ contract MountainFactory {
         // Becomes a member
         if(m.isAddressInvited(msg.sender) == true){
             m.addMember(msg.sender, name);
-            addContractMember(msg.sender, name, m);
+            var contractName = m.contractName();
+            addContractMember(msg.sender, contractName, m);
         }
     }
 
