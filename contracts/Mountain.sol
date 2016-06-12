@@ -89,7 +89,7 @@ contract Mountain {
         return false;
     }
 
-    function updateAccountState(address memberAddress, uint newAmount, bool withdrawal) internal {
+    function updateAccountState(address memberAddress, uint newAmount, bool withdrawal) public {
         var i = memberInformationLookup[memberAddress];
         var info = memberInformation[i];
 
@@ -117,6 +117,10 @@ contract Mountain {
         // in accountHistory, to not allow someone to consume all the gas
 
         //InvalidTransaction(0, accountHistory[who].length);
+
+        if(accountBalance[who] < 0){
+          return 0;
+        }
 
         for (uint j = 0; j < accountHistory[who].length; j++) {
             // If the transaction we're considering is a deposit,
@@ -226,7 +230,7 @@ contract Mountain {
         ));
 
         // Update the member account balance
-        accountBalance[msg.sender] = accountBalance[msg.sender] - int(amount);
+        accountBalance[msg.sender] += -int(amount);
 
         updateAccountState(msg.sender, amount, true);
 
@@ -259,7 +263,7 @@ contract Mountain {
         ));
 
         // Update account balance
-        accountBalance[msg.sender] = accountBalance[msg.sender] - int(amount);
+        accountBalance[msg.sender] += -int(amount);
 
         updateAccountState(msg.sender, amount, true);
 
@@ -278,8 +282,7 @@ contract Mountain {
 
     function canBorrow() mustBeMember() constant returns (int) {
 
-      var response = maxBorrowAmount(msg.sender);
-      return response;
+      return maxBorrowAmount(msg.sender);
 
     }
 

@@ -30,7 +30,7 @@ function createContract() {
       $('#toMountain').attr('href', '/mountain.html#'+result.args.mountain)
       events.stopWatching();
     }else{
-      console.log(e)
+      console.log(error)
     }
 
   });

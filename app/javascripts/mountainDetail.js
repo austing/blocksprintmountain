@@ -51,7 +51,11 @@ function showMountainDetail(){
   });
 
   mountain.accountBalance.call(account, {from: account}).then(function(value){
-    $('.myMountainBalance').text(value.c);
+    var balance = value.c;
+    if(value.s == -1){
+      balance = -value.c;
+    }
+    $('.myMountainBalance').text(balance);
     if(value.c < 0){
       $('li.paymentButton').css('display', '');
       $('a#paybackLink').attr('href', "/pay-back.html#"+address);
