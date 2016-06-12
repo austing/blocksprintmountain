@@ -16,16 +16,13 @@ function join(){
   setStatus("Processing...");
   var Factory = MountainFactory.deployed();
 
-  mountain.contractName.call({from: account}).then(function(value){
-    if(value){
-      Factory.joinMountain(web3.toAscii(value), mountain.address, {from: account}).then(function(value){
-        setStatus("You have joined this mountain.");
-      }).catch(function(e) {
-        console.log(e);
-        setStatus("Error joining mountain; see log.");
-      });
-    }
+  var name = document.getElementById("name").value;
+console.log(name)
+  Factory.joinMountain(name, mountain.address, {from: account}).then(function(value){
+    setStatus("You have joined this mountain.");
+  }).catch(function(e) {
+    console.log(e);
+    setStatus("Error joining mountain; see log.");
   });
-
 
 }

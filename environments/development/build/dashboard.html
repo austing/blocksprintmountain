@@ -8,7 +8,7 @@
   <link href="./static/css/app.css" rel='stylesheet' type='text/css'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <script type='text/javascript'>
-    window.page = 'join';
+    window.page = 'index';
   </script>
   <script src="./app.js"></script>
 </head>
@@ -37,17 +37,23 @@
     </nav>
   </header>
 
-  <div class="backlink"><a id="toMountain"><i class="fa fa-chevron-left" aria-hidden="true"></i>Back to mountain</a></div>
-
-  <div class="container"><h1 class="col-md-10 col-md-offset-1">Join the mountain: <span class="mountainName"></span></h1></div>
-
-  <section class="center w90 container">
-    <div id="status" class="col-sm-12"></div>
-    <div class="col-md-8 col-md-offset-2">
-      <label for="name">Name or pseudo:</label><input type="text" id="name">
+  <div class="container">
+    <div class="col-md-4 col-md-offset-4">
+      <image class="img img-responsive" src="/static/images/mountainmoney.png">
     </div>
-    <div class="col-md-12"><br><button id="send" onclick="join()">Yes, join!</button></div>
+  </div>
+  <h1>Mountain of Money</h1>
 
+  <section id="list-pot" class="center w90">
+    <h2>Mountains I created</h2>
+    <div class="block-list-pot flexblock" id="myFoundedMountains">
+
+    </div>
+
+    <h2>Mountains I'm part of</h2>
+    <div class="block-list-pot flexblock" id="myJoinedMountains">
+
+    </div>
   </section>
 
 </body>

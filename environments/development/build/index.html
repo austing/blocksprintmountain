@@ -22,39 +22,63 @@
           <a href="#menu" class="menuToggle"><span class="thumbs"><img src="/static/images/dinesh.jpg" width="50" alt=""></span><span>Dinesh Chugtai</span></a>
           <div id="menu">
             <ul>
-              <li><a href="index.html">Home</a></li>
-              {% for my_page in site.pages %}
-              {% if my_page.title %}
-              <li><a href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a></li>
-              {% endif %}
-              {% endfor %}
-              <li><a href="#">Sign Up</a></li>
-              <li><a href="#">Log Out</a></li>
             </ul>
           </div>
         </li>
       </ul>
     </nav>
   </header>
+				<!-- Banner -->
+					<section id="banner">
+						<div class="inner">
+							<h2>Mountain of Money</h2>
+              <p>Notre argent, ensemble c'est beaucoup</p>
+              <p>...Encore plus, si on s'organise</p>
+							<ul class="actions">
+								<li><a href="/dashboard.html" class="button special">START NOW</a></li>
+							</ul>
+						</div>
+						<a href="#one" class="more scrolly">Learn More</a>
+					</section>
 
-  <div class="container">
-    <div class="col-md-4 col-md-offset-4">
-      <image class="img img-responsive" src="/static/images/mountainmoney.png">
-    </div>
-  </div>
-  <h1>Mountain of Money</h1>
+				<!-- One -->
+					<section id="one" class="wrapper style1 special">
+						<div class="inner">
+							<header class="major">
+                <h2>L'usage collectif de capitaux mutualisés entre amis.</h2>
+                <h2>Quelques exemples :</h2>
+							</header>
+							<ul class="icons major">
+								<li><span class="icon fa-code major style3"><span class="label">Fast</span></span></li>
+								<li><span class="icon fa-diamond major style1"><span class="label">User Friendly</span></span></li>
+								<li><span class="icon fa-heart-o major style2"><span class="label">Live Changing</span></span></li>
 
-  <section id="list-pot" class="center w90">
-    <h2>Mountains I created</h2>
-    <div class="block-list-pot flexblock" id="myFoundedMountains">
+							</ul>
+						</div>
+					</section>
 
-    </div>
+				<!-- Two -->
+					<section id="two" class="wrapper alt style2">
+						<section class="spotlight">
+							<div class="image"><img src="/static/images/pic01.jpg" alt="" /></div><div class="content">
+								<h2>David, 25, globetrotter  got 1400 € from his friends.
+									</h2>
+								<p>Mountain Money allowed him to unblock 1 400 € immediately. Thanks to his network ! <br> He could withdraw <strong>1 400 €</strong> from his <strong>mountain moneypot</strong> and pay for his rent. </p>
+							</div>
+						</section>
+						<section class="spotlight">
+							<div class="image"><img src="/static/images/pic02.jpg" alt="" /></div><div class="content">
+								<h2>Anna, 30, veggie-born girl, got funded her brand new kitchen for 2400 € from her friends.</h2>
+								<p> Anna started her own company 2 months ago thanks to a big bunch of ambition and a state-of-the-art kitchen. </p>
+							</div>
+						</section>
+						<section class="spotlight">
+							<div class="image"><img src="/static/images/pic03.jpg" alt="" /></div><div class="content">
+								<h2>Julie, Laura, Nathan, 23, 27 and 32, bought some farmland for 6 890 €.</h2>
+								<p>Thanks to Mountain Money, their dream to eat fresh fruits and vegetables came true.</p>
+							</div>
+						</section>
+					</section>
 
-    <h2>Mountains I'm part of</h2>
-    <div class="block-list-pot flexblock" id="myJoinedMountains">
-
-    </div>
-  </section>
-
-</body>
+		</body>
 </html>

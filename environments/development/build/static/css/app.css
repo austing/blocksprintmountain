@@ -2851,6 +2851,10 @@ div#status {
   text-align: center;
 }
 
+.money {
+  color: rgba(255, 220, 69, 0.74);;
+}
+
 
 /*!
  * Bootstrap v3.3.5 (http://getbootstrap.com)

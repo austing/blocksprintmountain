@@ -23,6 +23,10 @@ function showMountainDetail(){
     }
   });
 
+  mountain.canBorrow.call({from: account}).then(function(value){
+    $('.maxBorrow').text(String(value.c));
+  })
+
   mountain.isAddressMember.call(account, {from: account}).then(function(value){
     if(value == false){
       $('.membersOnly').css('display', 'none');

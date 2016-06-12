@@ -36,7 +36,7 @@ contract Mountain {
         uint        totalOut;
         uint        totalIn;
         int         balance;
-        bytes32      name;
+        bytes32     name;
     }
     MemberInformation[] public memberInformation;
     uint public memberInformationLength;
@@ -57,12 +57,12 @@ contract Mountain {
 
     // Constructor
 
-    function Mountain(bytes32 name, uint multiplier, uint waitingWeeks, uint maxLoan, address foundingUser){
-        contractName = name;
-        multiplier = multiplier;
-        waitingWeeks = waitingWeeks;
-        maxLoan = maxLoan;
-        founder = foundingUser;
+    function Mountain(bytes32 _contractName, uint _multiplier, uint _waitingWeeks, uint _maxLoan, address _founder){
+        contractName = _contractName;
+        multiplier = _multiplier;
+        waitingWeeks = _waitingWeeks;
+        maxLoan = _maxLoan;
+        founder = _founder;
     }
 
     // TRANSACTIONS: State-altering methods
@@ -106,12 +106,18 @@ contract Mountain {
         memberInformation[i] = info;
     }
 
-    function maxBorrowAmount(address who) internal returns (int) {
+    //event ValidTransaction(int amount, uint timestamp);
+    //event InvalidTransaction(int amount, uint timestamp);
 
-        int borrowBase;
+    function maxBorrowAmount(address who) returns (int) {
+
+        int borrowBase=0;
         // Consider all transactions in user's history
         // @TODO Consider putting a hard limit on number of transactions
         // in accountHistory, to not allow someone to consume all the gas
+
+        //InvalidTransaction(0, accountHistory[who].length);
+
         for (uint j = 0; j < accountHistory[who].length; j++) {
             // If the transaction we're considering is a deposit,
             // check that it is older than six months; if it is not,
@@ -119,19 +125,21 @@ contract Mountain {
 
             // If the transaction is a withdrawal or loan, it is taken
             // into account no matter when it was.
-            bool A = accountHistory[who][j].amountIntoMountain >= 0;
-            bool B = now < accountHistory[who][j].timestamp + waitingWeeks * 1 weeks;
+            var isWithdrawal = accountHistory[who][j].amountIntoMountain <= 0;
+            var isOldEnough = now >= accountHistory[who][j].timestamp;// + waitingWeeks * 1 weeks;
 
-            if(!(A && B)){
+            if(isWithdrawal || isOldEnough){
                 borrowBase += accountHistory[who][j].amountIntoMountain;
             }
+            //InvalidTransaction(accountHistory[who][j].amountIntoMountain, accountHistory[who][j].timestamp);
+
         }
 
         // Once we have the base, we multiply it by the factor
         // defined in the contract terms.
         var amountCanBorrow = borrowBase * int(multiplier);
         if(amountCanBorrow > int(this.balance)){
-            throw;
+            return int(this.balance);
         }
 
         return amountCanBorrow;
@@ -270,7 +278,8 @@ contract Mountain {
 
     function canBorrow() mustBeMember() constant returns (int) {
 
-      return maxBorrowAmount(msg.sender);
+      var response = maxBorrowAmount(msg.sender);
+      return response;
 
     }
 

@@ -9,12 +9,12 @@ module.exports = {
     "withdraw.html": "withdraw.html",
     "invite.html": "invite.html",
     "join.html": "join.html",
-    "about.html": "about.html",
+    "dashboard.html": "dashboard.html",
     "app.js": [
       "javascripts/jquery.min.js",
       "javascripts/common.js",
       "javascripts/createForm.js",
-      "javascripts/index.js",
+      "javascripts/dashboard.js",
       "javascripts/moneyTransactions.js",
       "javascripts/mountainDetail.js",
       "javascripts/accountTransactions.js"

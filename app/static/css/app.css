@@ -2848,3 +2848,7 @@ body.is-mobile.landing #footer {
 div#status {
   text-align: center;
 }
+
+.money {
+  color: rgba(255, 220, 69, 0.74);;
+}

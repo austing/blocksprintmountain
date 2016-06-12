@@ -1,6 +1,8 @@
 function showBorrowMessage(){
   var mountain = Mountain.at(window.location.hash.slice(1));
+
   mountain.canBorrow.call({from: account}).then(function(value){
+    console.log(value);
     setStatus("Can borrow up to "+String(value.c)+" ETH")
   })
 }

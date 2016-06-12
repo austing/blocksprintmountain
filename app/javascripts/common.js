@@ -16,7 +16,7 @@ window.onload = function() {
 
     console.log(accs)
     accounts = accs;
-    account = accounts[0];
+    account = accounts[3];//accs.length - 1];
     console.log(account)
 
     if(window.page == 'index'){
