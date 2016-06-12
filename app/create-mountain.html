@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,19 +35,25 @@
     </nav>
   </header>
 
-  <h1>Mountain of Money</h1>
+  <h1>Create a money mountain</h1>
 
-  <section id="list-pot" class="center w90">
-    <h2>Mountains I created</h2>
-    <div class="block-list-pot flexblock" id="myFoundedMountains">
+<section id="create-pot" class="center w90 container">
+  <div id="status" class="col-sm-12"></div>
+      <div class="col-md-8 col-md-offset-2">
+        <label for="name">Nom de la montagne:</label><input type="text" id="name" placeholder="e.g., Performing Arts Forum"></input>
+      </div>
+      <div class="col-md-4">
+        <label for="waitingWeeks">Waiting weeks:</label><input type="number" min="0" id="waitingWeeks" value="12"> (The idea isn't to get money instantly, but to leave one's deposits and forget about them until one needs some capital. So generally one specifies a number of weeks of delay before one can borrow 3x one's deposit. Obviously one can withdraw the deposit at any time.)</input>
+      </div>
+      <div class="col-md-4">
+        <label for="multiplier">Multiplier:</label><input type="number" min="1" id="multiplier" value="3"> (Members will be able to borrow, e.g. 3x what they put in.)</input>
+      </div>
+      <div class="col-md-4">
+        <label for="maxLoan">Max loan:</label><input type="number" min="0" id="maxLoan" value="15000"> (Define a hard cap on your loan, if you want to.)</input>
+      </div>
+  <div class="col-sm-8 col-sm-offset-2"><button id="send" onclick="createContract()">Create a money mountain</button></div>
 
-    </div>
-
-    <h2>Mountains I'm part of</h2>
-    <div class="block-list-pot flexblock" id="myJoinedMountains">
-
-    </div>
-  </section>
+</section>
 
 </body>
 </html>

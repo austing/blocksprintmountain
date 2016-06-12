@@ -3,23 +3,51 @@
 <head>
   <title>Mountain of Money</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-  <link href="./app.css" rel='stylesheet' type='text/css'>
+  <link href="./static/css/app.css" rel='stylesheet' type='text/css'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script type='text/javascript'>
+    window.page = 'index';
+  </script>
   <script src="./app.js"></script>
 </head>
 <body>
+  <!-- Header -->
+  <header id="header"{% if page.layout == 'landing' %} class="alt"{% endif %} class="flexbox ui">
+    <h1><span><img src="/static/images/mountain-money-mini.png" alt="mountain money" width="50"></span></h1>
+    <nav id="nav" role="navigation">
+      <ul>
+        <li class="special">
+          <a href="#menu" class="menuToggle"><span class="thumbs"><img src="/static/images/dinesh.jpg" width="50" alt=""></span><span>Dinesh Chugtai</span></a>
+          <div id="menu">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              {% for my_page in site.pages %}
+              {% if my_page.title %}
+              <li><a href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a></li>
+              {% endif %}
+              {% endfor %}
+              <li><a href="#">Sign Up</a></li>
+              <li><a href="#">Log Out</a></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
   <h1>Mountain of Money</h1>
 
-  <h3>My mountains</h3>
-  <p id="myMountains"></p>
+  <section id="list-pot" class="center w90">
+    <h2>Mountains I created</h2>
+    <div class="block-list-pot flexblock" id="myFoundedMountains">
 
-  <br>
-  <h1>Create a money mountain</h1>
-  <br><label for="name">Nom de la montagne:</label><input type="text" id="name" placeholder="e.g., Performing Arts Forum"></input>
-  <br><label for="multiplier">Multiplier:</label><input type="number" min="1" id="multiplier" value="3"> (Members will be able to borrow, e.g. 3x what they put in.)</input>
-  <br><label for="waitingWeeks">Waiting weeks:</label><input type="number" min="0" id="waitingWeeks" value="12"> (The idea isn't to get money instantly, but to leave one's deposits and forget about them until one needs some capital. So generally one specifies a number of weeks of delay before one can borrow 3x one's deposit. Obviously one can withdraw the deposit at any time.)</input>
-  <br><label for="maxLoan">Max loan:</label><input type="number" min="0" id="maxLoan" value="15000"> (Define a hard cap on your loan, if you want to.)</input>
-  <br><br><button id="send" onclick="createContract()">Create a money mountain</button>
-  <span id="status"></span>
+    </div>
+
+    <h2>Mountains I'm part of</h2>
+    <div class="block-list-pot flexblock" id="myJoinedMountains">
+
+    </div>
+  </section>
+
 </body>
 </html>

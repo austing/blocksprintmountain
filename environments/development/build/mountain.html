@@ -1,0 +1,152 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mountain of Money</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href="./static/css/app.css" rel='stylesheet' type='text/css'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script type='text/javascript'>
+    window.page = 'mountain-detail';
+  </script>
+  <script src="./app.js"></script>
+</head>
+<body>
+  <section id="view-pot" class="center w90">
+    <h1>View mountain <span class="mountainName"></span></h1>
+    <div class="flexblock">
+      <div class="block-view w50">
+        <div class="img-pot">
+          <img src="/static/images/pig-pot.png" alt="">
+        </div><!--/-->
+        <div class="total-pot">
+          <p>Total of mountain</p>
+          <p class="price"><span class="mountainBalance">7050</span>€</p>
+        </div><!--/total-pot-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+        <div id="container" class="center highcharts"></div>
+        <script type="text/javascript">
+          $(function () {
+              $(document).ready(function () {
+                  Highcharts.setOptions({
+                      global: {
+                          useUTC: false
+                      }
+                  });
+
+                  var chart = new Highcharts.Chart({
+                      chart: {
+                        renderTo: 'container',
+                          type: 'spline',
+                          animation: Highcharts.svg, // don't animate in old IE
+                          marginRight: 10,
+                          events: {
+                              load: function () {
+
+                                  // set up the updating of the chart each second
+                                  var series = this.series[0];
+                                  setInterval(function () {
+                                      var x = (new Date()).getTime(), // current time
+                                          y = Math.random();
+                                      series.addPoint([x, y], true, true);
+                                  }, 1000);
+                              }
+                          }
+                      },
+                      title: {
+                          text: 'Live random data'
+                      },
+                      xAxis: {
+                          type: 'datetime',
+                          tickPixelInterval: 150
+                      },
+                      yAxis: {
+                          title: {
+                              text: 'Value'
+                          },
+                          plotLines: [{
+                              value: 0,
+                              width: 1,
+                              color: '#131313'
+                          }]
+                      },
+                      tooltip: {
+                          formatter: function () {
+                              return '<b>' + this.series.name + '</b><br/>' +
+                                  Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                  Highcharts.numberFormat(this.y, 2);
+                          }
+                      },
+                      legend: {
+                          enabled: false
+                      },
+                      exporting: {
+                          enabled: false
+                      },
+                      series: [{
+                          name: 'Random data',
+                          data: (function () {
+                              // generate an array of random data
+                              var data = [],
+                                  time = (new Date()).getTime(),
+                                  i;
+
+                              for (i = -19; i <= 0; i += 1) {
+                                  data.push({
+                                      x: time + i * 1000,
+                                      y: Math.random()
+                                  });
+                              }
+                              return data;
+                          }())
+                      }]
+                  });
+              });
+          });
+        </script>
+      </div><!--/block-view-->
+
+      <div class="block-admin-pot w50">
+        <div class="block-link-list">
+          <a href="#list-pot" class="button">Retour à la liste des pot(s)</a>
+        </div>
+        <div class="table-invit">
+          <table>
+            <thead>
+              <tr>
+                <th>&nbsp</th>
+                <th>My Mountain's friend</th>
+                <th>Last transaction</th>
+                <th>Total deposits</th>
+                <th>Total withdrawals</th>
+                <th>Current balance</th>
+              </tr>
+            </thead>
+            <tbody id="membersTable">
+            </tbody>
+          </table>
+        </div><!--/table-invit-->
+        <div class="invit-pot">
+          <form action="" method="post">
+            <label for="mail-invit">Invite friends</label>
+            <input type="email" id="mail-invit" palceholder="Dinesh ">
+          </form>
+        </div><!--/invit-pot-->
+        <div class="list-btn">
+          <ul class="flexblock">
+            <li><button>Dépôt</button></li>
+            <li><button>Retirer dépôt</button></li>
+            <li><button>Emprunt</button></li>
+            <li><button>Paiment</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
