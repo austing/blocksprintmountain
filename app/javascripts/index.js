@@ -21,7 +21,7 @@ function refreshMyMountains() {
 
     var mountains = [];
     if(!value.c[0]){
-      setFoundedMountains("No current mountains set up.")
+      setFoundedMountains("")
       return;
     }
     var length = value.c[0];
@@ -63,7 +63,7 @@ function refreshMyMountains() {
 
     var mountains = [];
     if(!value.c[0]){
-      setJoinedMountains("No current mountains set up.")
+      setJoinedMountains("")
       return;
     }
     var length = value.c[0];

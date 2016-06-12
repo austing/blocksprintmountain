@@ -9,6 +9,7 @@ module.exports = {
     "withdraw.html": "withdraw.html",
     "invite.html": "invite.html",
     "join.html": "join.html",
+    "about.html": "about.html",
     "app.js": [
       "javascripts/jquery.min.js",
       "javascripts/common.js",
