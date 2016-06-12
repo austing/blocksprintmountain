@@ -1,22 +1,3 @@
-function setMembersList(listHTML) {
-  var myMountains = document.getElementById("membersTable");
-  myMountains.innerHTML = listHTML;
-};
-
-function showTransactionForm(){
-  var hash = window.location.hash.slice(1);
-  var mountain = Mountain.at(hash);
-
-  $('#toMountain').attr('href', '/mountain.html#'+hash);
-
-  mountain.contractName.call({from: account}).then(function(value){
-    if(value){
-      $('.mountainName').text(web3.toAscii(value));
-    }
-  });
-
-}
-
 function showBorrowMessage(){
   var mountain = Mountain.at(window.location.hash.slice(1));
   mountain.canBorrow.call({from: account}).then(function(value){
@@ -40,9 +21,10 @@ function showPaymentMessage(){
 
 function makeDeposit(){
   var mountain = Mountain.at(window.location.hash.slice(1));
-  var amount = document.getElementById("amount").value;
+  var amount = parseInt(document.getElementById("amount").value);
   setStatus("Sending money...");
-  mountain.deposit({from: account, value: amount}).then(function(value){
+
+  mountain.deposit({from: account, value: amount}).then(function(){
     setStatus("Sent.");
   }).catch(function(e) {
     console.log(e);
@@ -54,12 +36,23 @@ function makeDeposit(){
 function withdraw(){
   var mountain = Mountain.at(window.location.hash.slice(1));
   var amount = document.getElementById("amount").value;
-  setStatus("Sending money...");
-  mountain.withdraw({from: account, value: amount}).then(function(value){
+  setStatus("Requesting withdrawal money...");
+  mountain.withdraw(amount, {from: account}).then(function(value){
     setStatus("Withdrawn.");
   }).catch(function(e) {
     console.log(e);
     setStatus("Error withdrawing money; see log.");
   });
+}
 
+function borrow(){
+  var mountain = Mountain.at(window.location.hash.slice(1));
+  var amount = document.getElementById("amount").value;
+  setStatus("Requesting money money...");
+  mountain.loan(amount, {from: account}).then(function(value){
+    setStatus("Borrowed.");
+  }).catch(function(e) {
+    console.log(e);
+    setStatus("Error borrowing money; see log.");
+  });
 }

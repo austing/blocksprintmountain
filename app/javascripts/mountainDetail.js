@@ -3,13 +3,31 @@ function setMembersList(listHTML) {
   myMountains.innerHTML = listHTML;
 };
 
+function setMembersList(listHTML) {
+  var myMountains = document.getElementById("membersTable");
+  myMountains.innerHTML = listHTML;
+};
+
 function showMountainDetail(){
   var address = window.location.hash.slice(1);
   var mountain = Mountain.at(address);
   $('a#depositLink').attr('href', "/deposit.html#"+address);
   $('a#withdrawLink').attr('href', "/withdraw.html#"+address);
   $('a#borrowLink').attr('href', "/borrow.html#"+address);
-  $('a#paybackLink').attr('href', "/pay-back.html#"+address);
+
+  mountain.isAddressInvited.call(account, {from: account}).then(function(value){
+    console.log(arguments)
+    if(value){
+      $('.joinButtons').css('display', '');
+      $('#joinLink').attr('href', "/join.html#"+address);
+    }
+  });
+
+  mountain.isAddressMember.call(account, {from: account}).then(function(value){
+    if(value == false){
+      $('.membersOnly').css('display', 'none');
+    }
+  });
 
   mountain.contractName.call({from: account}).then(function(value){
     if(value){
@@ -19,9 +37,24 @@ function showMountainDetail(){
 
   $('.mountainBalance').text(web3.eth.getBalance(mountain.address));
 
+  mountain.founder.call({from: account}).then(function(value){
+    if(account == value){
+      $('a#inviteLink').attr('href', "/invite.html#"+address);
+      $('li.adminButton').css('display', '');
+    }
+  }).catch(function(e){
+    console.log(e)
+  });
+
   mountain.accountBalance.call(account, {from: account}).then(function(value){
     $('.myMountainBalance').text(value.c);
-  })
+    if(value.c < 0){
+      $('li.paymentButton').css('display', '');
+      $('a#paybackLink').attr('href', "/pay-back.html#"+address);
+    }
+  }).catch(function(e){
+    console.log(e)
+  });
 
   mountain.memberInformationLength.call({from: account}).then(function(value) {
 
@@ -33,19 +66,14 @@ function showMountainDetail(){
           var member = {};
           member.address = value[0];
           member.lastTransaction = value[1];
+          if(member.lastTransaction > 0){
+            member.signForLast = '+';
+          }else{
+            member.signForLast = '';
+          }
           member.lastTransactionDate = new Date(value[2]*1000);
           member.totalOut = value[3];
-          if(member.totalOut > 0){
-            member.signForOut = '+';
-          }else{
-            member.signForOut = '';
-          }
           member.totalIn = value[4];
-          if(member.totalIn > 0){
-            member.signForIn = '+';
-          }else{
-            member.signForIn = '';
-          }
           member.balance = value[5];
           member.name = web3.toAscii(value[6]);
 
@@ -68,10 +96,10 @@ function showMountainDetail(){
                 return `
                 <tr>
                     <td>`+member.name+`</td>
-                    <td>`+String(member.lastTransaction)+`</td>
-                    <td>`+member.signForIn+String(member.totalIn)+`ETH</td>
-                    <td>`+member.signForOut+String(member.totalOut)+`ETH</td>
-                    <td>`+String(member.balance)+`ETH</td>
+                    <td>`+member.signForLast+String(member.lastTransaction)+` ETH</td>
+                    <td>`+String(member.totalIn)+` ETH</td>
+                    <td>`+String(member.totalOut)+` ETH</td>
+                    <td>`+String(member.balance)+` ETH</td>
                 </tr>`;
               }).join(`
                 `)

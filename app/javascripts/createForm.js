@@ -22,11 +22,17 @@ function createContract() {
 
   setStatus("Creating mountain...");
 
-  Factory.createContract(name, multiplier, waitingWeeks, maxLoan, {from: account}).then(function() {
+  var events = Factory.MountainCreated(function(error, result){
+    if(!error){
+      $('#toMountain').attr('href', '/mountain.html#'+result.args.mountain)
+    }
+    events.stopWatching();
+  });
+
+  Factory.createContract(name, multiplier, waitingWeeks, maxLoan, {from: account}).then(function(value) {
     setStatus("");
     $('#createForm').hide();
     $('.success').css('display','');
-    refreshMyMountains();
   }).catch(function(e) {
     console.log(e);
     setStatus("Error creating mountain; see log.");

@@ -16,6 +16,7 @@ module.exports = {
       "javascripts/index.js",
       "javascripts/moneyTransactions.js",
       "javascripts/mountainDetail.js",
+      "javascripts/accountTransactions.js"
     ],
     "static/css/app.css": [
       "static/css/app.css",

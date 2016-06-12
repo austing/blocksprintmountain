@@ -2825,11 +2825,11 @@ body.is-mobile.landing #footer {
   min-height: 50vh; }
 
 
-.depositButtons {
+.operationButtons {
   list-style: none;
   text-align: center;
 }
-.depositButtons li {
+.operationButtons li {
   display: inline-block;
 }
 

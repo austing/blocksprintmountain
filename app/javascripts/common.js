@@ -14,8 +14,10 @@ window.onload = function() {
       return;
     }
 
+    console.log(accs)
     accounts = accs;
     account = accounts[0];
+    console.log(account)
 
     if(window.page == 'index'){
       refreshMyMountains();
@@ -38,7 +40,9 @@ window.onload = function() {
       showTransactionForm();
       showPaymentMessage();
     }
-
+    if(window.page == 'join'){
+      showTransactionForm();
+    }
   });
 }
 
@@ -46,3 +50,17 @@ function setStatus(message) {
   var status = document.getElementById("status");
   status.innerHTML = message;
 };
+
+
+function showTransactionForm(){
+  var hash = window.location.hash.slice(1);
+  var mountain = Mountain.at(hash);
+
+  $('#toMountain').attr('href', '/mountain.html#'+hash);
+
+  mountain.contractName.call({from: account}).then(function(value){
+    if(value){
+      $('.mountainName').text(web3.toAscii(value));
+    }
+  });
+}

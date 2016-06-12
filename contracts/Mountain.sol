@@ -24,8 +24,10 @@ contract Mountain {
     // uint public rateOfUnanimityForNewMembers;
 
     // Members are current members
-    enum MemberStatuses { Invited, Member }
-    mapping(address => MemberStatuses) public memberStatus;
+    // 0 = not a member
+    // 1 = member
+    // 2 = invited
+    mapping(address => uint) public memberStatus;
 
     struct MemberInformation {
         address     memberAddress;
@@ -55,48 +57,41 @@ contract Mountain {
 
     // Constructor
 
-    function Mountain(bytes32 name, uint multiplier, uint waitingWeeks, uint maxLoan, address founder){
+    function Mountain(bytes32 name, uint multiplier, uint waitingWeeks, uint maxLoan, address foundingUser){
         contractName = name;
         multiplier = multiplier;
         waitingWeeks = waitingWeeks;
         maxLoan = maxLoan;
-        founder = founder;
+        founder = foundingUser;
     }
 
     // TRANSACTIONS: State-altering methods
 
-    modifier mustBeMember() {
-        if(memberStatus[msg.sender] != MemberStatuses.Member) throw;
+    modifier mustBeMember {
+        if(memberStatus[msg.sender] == 1) _
     }
 
-    modifier mustBeFounder() {
-        if(msg.sender != founder) throw;
+    modifier mustBeFounder {
+        if(msg.sender == founder) _
     }
 
-    function isMemberInvited (address member) public returns (bool) {
-        if(memberStatus[member] == MemberStatuses.Invited){
+    function isAddressInvited (address member) public returns (bool) {
+        if(memberStatus[member] == 2){
           return true;
         }
         return false;
     }
 
-    function addMember (address member, bytes32 name) {
-        memberStatus[member] = MemberStatuses.Member;
-        memberInformationLookup[member] = memberInformation.length;
-        memberInformation.push(MemberInformation(
-            msg.sender,
-            0,
-            now,
-            0,
-            0,
-            0,
-            name
-        ));
-        memberInformationLength++;
+    function isAddressMember (address member) public returns (bool) {
+        if(memberStatus[member] == 1){
+          return true;
+        }
+        return false;
     }
 
     function updateAccountState(address memberAddress, uint newAmount, bool withdrawal) internal {
-        var info = memberInformation[memberInformationLookup[memberAddress]];
+        var i = memberInformationLookup[memberAddress];
+        var info = memberInformation[i];
 
         info.balance = accountBalance[memberAddress];
         if(withdrawal){
@@ -108,7 +103,7 @@ contract Mountain {
         }
         info.lastTransactionDate = now;
 
-        memberInformation[memberInformationLookup[memberAddress]] = info;
+        memberInformation[i] = info;
     }
 
     function maxBorrowAmount(address who) internal returns (int) {
@@ -143,16 +138,39 @@ contract Mountain {
 
     }
 
-    function invite(address newMember) mustBeFounder() {
-        var status = memberStatus[newMember];
-        if(status != MemberStatuses.Member && status != MemberStatuses.Invited){
-            memberStatus[newMember] == MemberStatuses.Invited;
+    function invite (address member) mustBeFounder() public {
+
+        if(memberStatus[member] == 0){
+            memberStatus[member] = 2;
+        }else{
+            throw;
         }
+
     }
 
-    function deposit() mustBeMember() {
-        // Send money as value in the deposit function
+    function addMember (address member, bytes32 name) {
+        if(memberStatus[member] == 1){
+            throw;
+        }
 
+        memberStatus[member] = 1;
+        memberInformationLookup[member] = memberInformation.length;
+        memberInformation.push(MemberInformation(
+            msg.sender,
+            0,
+            now,
+            0,
+            0,
+            0,
+            name
+        ));
+        accountBalance[member] = 0;
+        memberInformationLength++;
+    }
+
+    function deposit() mustBeMember() public {
+
+        // Send money as value in the deposit function
         // No point in recording the history of null transactions
         if(msg.value == 0){
           return;
@@ -181,13 +199,13 @@ contract Mountain {
         // And that the amount they want to withdraw is less
         // than their total balance.
         if(accountBalance[msg.sender] <= 0 || accountBalance[msg.sender] < int(amount)){
-          return;
+          throw;
         }
 
         // Check that there is globally enough money on the contract
         // to make the transaction.
         if(this.balance < amount){
-          return;
+          throw;
         }
 
         // Send the money
@@ -214,13 +232,13 @@ contract Mountain {
         if(amount == 0) return;
 
         if(this.balance < amount){
-          return;
+          throw;
         }
 
         // If the amount the user wishes to borrow is greater
         // than the amount allowed, do not execute the operation
         if(int(amount) > maxBorrowAmount(msg.sender)){
-            return;
+          throw;
         }
 
         // If we got to here, everything's OK, send the money.

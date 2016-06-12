@@ -14,21 +14,27 @@
   <div class="backlink"><a href="/"><i class="fa fa-chevron-left" aria-hidden="true"></i>Home</a></div>
   <section id="view-pot" class="center w90">
     <h1 class="mountainName"></h1>
-    <h2 class="subtitle">Mountain dashboard</h1>
-    <div class="container text-center">
+    <h2 class="subtitle membersOnly">Mountain dashboard</h1>
+    <div class="container text-center membersOnly">
       <image class="center-block" src="/static/images/pig-pot.png"><br>
       <h3 class="total">There is <span class="mountainBalance"></span> ETH total<br>on the mountain</h3>
       <h3 class="total">You have <span class="myMountainBalance"></span> ETH<br>on the mountain</h3>
     </div>
 
     <div class="list-btn">
-      <ul class="depositButtons">
+
+      <ul class="membersOnly operationButtons">
         <li><a id="depositLink"><button>Dépôt</button></a></li>
         <li><a id="withdrawLink"><button>Retirer dépôt</button></a></li>
         <li><a id="borrowLink"><button>Emprunt</button></a></li>
-        <li><a id="paybackLink"><button>Paiment</button></a></li>
-        <li class="adminButton"></li>
+        <li class="paymentButton" style="display: none;"><a id="paybackLink"><button>Paiment</button></a></li>
+        <li class="adminButton" style="display: none;"><a id="inviteLink"><button>Invite</button></a></li>
       </ul>
+
+      <ul class="joinButtons" style="display: none;">
+        <li><a id="joinLink"><button>Join</button></a></li>
+      </ul>
+
     </div>
 
     <div class="container">
