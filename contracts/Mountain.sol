@@ -17,6 +17,8 @@ contract Mountain {
 
     // Hard limit to loans
     uint public maxLoan;
+    // Once we start using maxLoan, we need to make sure
+    // it is only used if its value isn't 0.
 
     // For later
     // uint public timeToPayBack;
