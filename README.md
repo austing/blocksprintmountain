@@ -1,4 +1,4 @@
-# blocksprintmountain
+# Mountain of Money prototype
 
 Coded at the Blockfest hackathon in Paris, in June 2016 (won "prix technique").
 
