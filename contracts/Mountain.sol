@@ -70,11 +70,11 @@ contract Mountain {
     // TRANSACTIONS: State-altering methods
 
     modifier mustBeMember {
-        if(memberStatus[msg.sender] == 1) _
+        if(memberStatus[msg.sender] == 1) _;
     }
 
     modifier mustBeFounder {
-        if(msg.sender == founder) _
+        if(msg.sender == founder) _;
     }
 
     function isAddressInvited (address member) public returns (bool) {
